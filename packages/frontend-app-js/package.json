@@ -1,0 +1,19 @@
+{
+  "name": "frontend-app",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Donald Mull Jr <donald.mull@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/frontend-app-js.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

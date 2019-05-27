@@ -1,0 +1,4 @@
+node_modules
+bootstrap.sh
+terraform.tfvars
+.terraform
