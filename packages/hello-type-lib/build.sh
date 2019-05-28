@@ -10,8 +10,6 @@ mkdir -p lib
 # .proto -> .js
 find ./proto  ! \( -path "*/google/api/*" \)  -name "*.proto" | xargs -J {} npx pbjs {} \
   -t static-module \
-  --es6 \
-  -w es6 \
   -o lib/generated.js
 
 # .js (with type comments) -> .d.ts

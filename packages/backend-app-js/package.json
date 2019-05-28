@@ -1,11 +1,10 @@
 {
   "name": "backend-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "Donald Mull Jr <donald.mull@gmail.com>",
   "homepage": "",
   "license": "ISC",
-  "private": true,
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",
@@ -25,6 +24,8 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "grpc": "^1.21.1",
+    "hello-type-lib": "^1.0.0"
   }
 }

@@ -1,10 +1,9 @@
 {
   "name": "frontend-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "Donald Mull Jr <donald.mull@gmail.com>",
   "homepage": "",
-  "private": true,
   "license": "ISC",
   "main": "lib/frontend-app-js.js",
   "directories": {
