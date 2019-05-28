@@ -24,13 +24,44 @@ class GreeterService extends hello.grpc.Greeter  {
 }
 
 
+const GreeterServiceDescription = {
+  // Sends a greeting
+  sayHello: {
+    path: '/hello.grpc.Greeter/SayHello',
+    requestStream: false,
+    responseStream: false,
+    requestType: hello.grpc.HelloRequest,
+    responseType: hello.grpc.HelloReply,
+    requestSerialize: (data: hello.grpc.HelloRequest) => Buffer.from(hello.grpc.HelloRequest.encode(data).finish()),
+    requestDeserialize: (buffer: Buffer) => {
+      console.log('requestDeserialize');
+      return hello.grpc.HelloRequest.decode(buffer);
+    },
+    responseSerialize: (data: hello.grpc.HelloReply) => Buffer.from(hello.grpc.HelloReply.encode(data).finish()),
+    responseDeserialize: (buffer: Buffer) => hello.grpc.HelloReply.decode(buffer)
+  },
+};
+
+GreeterServiceDescription.sayHello = new Proxy(GreeterServiceDescription.sayHello, {
+  get(target, propKey, receiver) {
+    console.log('GreeterServiceDescription[' + propKey.toString() + ']: ');
+    return (<any>target)[propKey];
+  }
+});
+
+
+
 export function createGrpcServer(
-  port: number | string = 50066
 ): grpc.Server {
   const server = new grpc.Server()
-  server.addService(hello.grpc.Greeter, {
 
+  server.addService(GreeterServiceDescription, {
+    sayHello(input: hello.grpc.HelloRequest, callback: any) {
+      console.error("ARGS:", arguments);
+    }
   })
+
+  const port = 50066;
 
   server.bind(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure())
 
@@ -41,4 +72,5 @@ export function createGrpcServer(
 
 }
 
-createGrpcServer();
+const myServer = createGrpcServer();
+myServer.start();
