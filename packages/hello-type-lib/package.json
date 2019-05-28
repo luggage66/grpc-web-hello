@@ -1,0 +1,27 @@
+{
+  "name": "hello-type-lib",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Donald L Mull Jr <donald.mull@gmail.com>",
+  "homepage": "https://github.com/luggage66/grpc-web-hello#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luggage66/grpc-web-hello.git"
+  },
+  "scripts": {
+    "build": "./build.sh && tsc -p .",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/luggage66/grpc-web-hello/issues"
+  }
+}
