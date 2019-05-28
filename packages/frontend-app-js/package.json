@@ -4,6 +4,7 @@
   "description": "> TODO: description",
   "author": "Donald Mull Jr <donald.mull@gmail.com>",
   "homepage": "",
+  "private": true,
   "license": "ISC",
   "main": "lib/frontend-app-js.js",
   "directories": {
@@ -14,6 +15,11 @@
     "lib"
   ],
   "scripts": {
+    "build": "tsc -p .",
     "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "devDependencies": {
+    "protobufjs": "^6.8.8",
+    "typescript": "^3.4.5"
   }
 }
