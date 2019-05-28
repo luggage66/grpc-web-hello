@@ -26,6 +26,8 @@
     "url": "https://github.com/luggage66/grpc-web-hello/issues"
   },
   "devDependencies": {
-    "protobufjs": "^6.8.8"
+    "protobufjs": "^6.8.8",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1"
   }
 }

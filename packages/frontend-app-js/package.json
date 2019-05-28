@@ -18,7 +18,18 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "devDependencies": {
+    "@types/google-protobuf": "^3.2.7",
+    "html-webpack-plugin": "^3.2.0",
     "protobufjs": "^6.8.8",
-    "typescript": "^3.4.5"
+    "ts-loader": "^6.0.1",
+    "typescript": "^3.4.5",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1"
+  },
+  "dependencies": {
+    "google-protobuf": "^3.8.0-rc.1",
+    "grpc-web": "^1.0.4",
+    "hello-type-lib": "^1.0.0"
   }
 }

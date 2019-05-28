@@ -6,6 +6,8 @@ yarn start
 ```
 
 ```sh
+protoc -I../hello-type-lib/proto ../hello-type-lib/proto/hello-world.proto --js_out=import_style=typescript:lib --grpc-web_out=import_style=typescript,mode=grpcwebtext:lib
+
 cd packages/hello-type-lib
 
 prototool grpc --address localhost:50066 --method hello.grpc.Greeter/SayHello --data '{ "name": "gfgfd" }'
