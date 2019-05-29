@@ -26,7 +26,7 @@ cd packages/hello-type-lib
 prototool grpc --address localhost:50066 --method hello.grpc.Greeter/SayHello --data '{ "name": "gfgfd" }'
 
 # or
-prototool grpc --address $(minikube service hello-backend --url --format "{{.IP}}:{{.Port}} | head -n 1") --method hello.grpc.Greeter/SayHello --data '{ "name": "gfgfd" }'
+prototool grpc --address $(minikube service hello-backend --url --format "{{.IP}}:{{.Port}}" | head -n 1) --method hello.grpc.Greeter/SayHello --data '{ "name": "gfgfd" }'
 
 ```
 

@@ -4,7 +4,7 @@ import { HelloReply, HelloRequest} from './generated/hello-world_pb'
 
 import { GreeterClient } from './greeterClient';
 
-var client = new GreeterClient('http://localhost:8080', {}, {});
+var client = new GreeterClient('http://192.168.99.118:31215', {}, {});
 
 var request = new HelloRequest();
 request.setName('World');

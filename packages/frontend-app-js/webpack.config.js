@@ -10,7 +10,7 @@ module.exports = {
             {
                 include: [path.resolve(__dirname, 'src')],
                 loader: 'ts-loader',
-                test: /\.tsx?$/
+                test: /\.(j|t)sx?$/
             }
         ]
     },
