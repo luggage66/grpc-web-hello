@@ -1,4 +1,15 @@
 ```sh
+minikube delete && minikube start
+terraform import kubernetes_service_account.default default/default
+terraform apply
+kubectl delete deploy foo
+kubectl run foo --image=gcr.io/$(terraform output project_id)/hello-world
+kubectl describe pod foo
+git status
+```
+
+
+```sh
 lerna bootstrap
 lerna run build
 cd packages/backend-app-js

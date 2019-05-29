@@ -37,14 +37,14 @@ resource "google_project_services" "project" {
 resource "google_service_account" "minikube_sa" {
   account_id   = "laptop2-minikube"
   display_name = "Minikube service account"
-  project = "${google_project.project.project_id}" 
+  project = "${google_project.project.project_id}"
 }
 
 resource "google_service_account_key" "googleminikubekey" {
   service_account_id = "${google_service_account.minikube_sa.name}"
 }
 
-resource "kubernetes_service_account" "example" {
+resource "kubernetes_service_account" "default" {
   metadata {
     name = "default"
   }
@@ -62,26 +62,34 @@ resource "kubernetes_secret" "google-application-credentials" {
   }
 }
 
-# resource "kubernetes_secret" "example" {
-#   metadata {
-#     name = "docker-config"
-#   }
+resource "kubernetes_secret" "gcr-pull-key" {
+  metadata {
+    name = "docker-config"
+  }
 
-#   data {
-#     ".dockerconfigjson" = "${jsonencode({"auths"={"https://gcr.io"=32}})}"
-#   }
+  data {
+    ".dockerconfigjson" = "${jsonencode(
+      map(
+        "auths", map(
+          "https://gcr.io", map(
+            "auth", google_service_account_key.googleminikubekey.private_key
+          )
+        )
+      )
+    )}"
+  }
 
-#   type = "kubernetes.io/dockerconfigjson"
-# }
+  type = "kubernetes.io/dockerconfigjson"
+}
 
 resource "google_project_iam_member" "binding_push_access" {
-  project = "${google_project.project.project_id}" 
+  project = "${google_project.project.project_id}"
   role    = "roles/storage.admin"
   member  = "serviceAccount:${google_service_account.minikube_sa.email}"
 }
 
 resource "google_project_iam_member" "binding_pull_access" {
-  project = "${google_project.project.project_id}" 
+  project = "${google_project.project.project_id}"
   role    = "roles/storage.objectViewer"
   member  = "serviceAccount:${google_service_account.minikube_sa.email}"
 }
