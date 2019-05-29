@@ -1,20 +1,41 @@
-```sh
-minikube delete && minikube start
-terraform import kubernetes_service_account.default default/default
-terraform apply
-kubectl delete deploy foo
-kubectl run foo --image=gcr.io/$(terraform output project_id)/hello-world
-kubectl describe pod foo
-git status
-```
-
+setup and run
 
 ```sh
+# after clone
 lerna bootstrap
 lerna run build
+
+# build docker images
+docker build . -t hello-grpc-server -f backend.Dockerfile
+docker build . -t hello-grpc-client -f frontend.Dockerfile
+
+# apply all k8s configs
+find k8s/default -type f | xargs -I {} kubectl apply --namespace default -f {}
+find k8s/istio-system -type f | xargs -I {} kubectl apply --namespace istio-system -f {}
+```
+
+To run local client:
+
+```sh
+cd packages/frontend-app-js
+webpack-dev-server
+```
+
+To run local backend:
+
+```sh
 cd packages/backend-app-js
 yarn start
 ```
+
+Undeploy all
+
+```sh
+find k8s/default -type f | xargs -I {} kubectl delete --namespace default -f {}
+find k8s/istio-system -type f | xargs -I {} kubectl delete --namespace istio-system -f {}
+```
+
+Random stuff:
 
 ```sh
 cd packages/frontend-app-js
@@ -30,22 +51,15 @@ prototool grpc --address $(minikube service hello-backend --url --format "{{.IP}
 ```
 
 ```sh
-# build docker images
-docker build . -t hello-grpc-server -f backend.Dockerfile
-docker build . -t hello-grpc-client -f frontend.Dockerfile
-
-# apply all k8s configs
-find k8s/default -type f | xargs -I {} kubectl apply --namespace default -f {}
-find k8s/istio-system -type f | xargs -I {} kubectl apply --namespace istio-system -f {}
-```
-
-Undeploy all
-
-```sh
-find k8s/default -type f | xargs -I {} kubectl delete --namespace default -f {}
-find k8s/istio-system -type f | xargs -I {} kubectl delete --namespace istio-system -f {}
-```
-
-```sh
 istioctl proxy-config listeners hello-backend-d77647989-6bqfb --port 50066 -o json
+```
+
+```sh
+minikube delete && minikube start
+terraform import kubernetes_service_account.default default/default
+terraform apply
+kubectl delete deploy foo
+kubectl run foo --image=gcr.io/$(terraform output project_id)/hello-world
+kubectl describe pod foo
+git status
 ```

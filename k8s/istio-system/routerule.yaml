@@ -21,6 +21,6 @@ spec:
       allowHeaders:
         - keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
       exposeHeaders:
-        - custom-header-1,grpc-status,grpc-message
+        - access-control-allow-origin,grpc-status,grpc-message
       maxAge: 300s
       allowCredentials: true
