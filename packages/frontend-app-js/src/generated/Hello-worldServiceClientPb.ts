@@ -1,8 +1,17 @@
+/**
+ * @fileoverview gRPC-Web generated client stub for hello.grpc
+ * @enhanceable
+ * @public
+ */
+
+// GENERATED CODE -- DO NOT EDIT!
+
+
 import * as grpcWeb from 'grpc-web';
 
 import {
   HelloReply,
-  HelloRequest} from './generated/hello-world_pb';
+  HelloRequest} from './hello-world_pb';
 
 export class GreeterClient {
   client_: grpcWeb.AbstractClientBase;
