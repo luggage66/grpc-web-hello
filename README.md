@@ -27,13 +27,25 @@ prototool grpc --address localhost:50066 --method hello.grpc.Greeter/SayHello --
 
 # or
 prototool grpc --address $(minikube service hello-backend --url --format "{{.IP}}:{{.Port}}" | head -n 1) --method hello.grpc.Greeter/SayHello --data '{ "name": "gfgfd" }'
-
 ```
 
 ```sh
+# build docker images
 docker build . -t hello-grpc-server -f backend.Dockerfile
-kubectl run hello-backend --image=hello-grpc-server --image-pull-policy Never
+docker build . -t hello-grpc-client -f frontend.Dockerfile
 
-kubectl apply -f backend_deployment.yaml
-kubectl apply -f backend_service.yaml
+# apply all k8s configs
+find k8s/default -type f | xargs -I {} kubectl apply --namespace default -f {}
+find k8s/istio-system -type f | xargs -I {} kubectl apply --namespace istio-system -f {}
+```
+
+Undeploy all
+
+```sh
+find k8s/default -type f | xargs -I {} kubectl delete --namespace default -f {}
+find k8s/istio-system -type f | xargs -I {} kubectl delete --namespace istio-system -f {}
+```
+
+```sh
+istioctl proxy-config listeners hello-backend-d77647989-6bqfb --port 50066 -o json
 ```

@@ -20,6 +20,6 @@ spec:
   selector:
     run: hello-backend
   sessionAffinity: None
-  type: NodePort
+  type: LoadBalancer
 status:
   loadBalancer: {}

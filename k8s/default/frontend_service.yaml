@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    run: hello-frontend
+  name: hello-frontend
+  selfLink: /api/v1/namespaces/default/services/hello-frontend
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: hello-frontend
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}

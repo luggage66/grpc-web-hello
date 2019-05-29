@@ -45,5 +45,9 @@ module.exports = {
             minSize: 30000,
             name: true
         }
+    },
+
+    devServer: {
+      disableHostCheck: true
     }
 };

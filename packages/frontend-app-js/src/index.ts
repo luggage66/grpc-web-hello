@@ -4,12 +4,15 @@ import { HelloReply, HelloRequest} from './generated/hello-world_pb'
 
 import { GreeterClient } from './greeterClient';
 
-var client = new GreeterClient('http://192.168.99.118:31215', {}, {});
+var client = new GreeterClient('http://hello-backend.default.svc.cluster.local:50066', {}, {
+  suppressCorsPreflight: "true"
+});
 
 var request = new HelloRequest();
 request.setName('World');
 
-client.sayHello(request, {}, (err, response) => {
+client.sayHello(request, { }, (err, response) => {
+  console.error(err);
   console.log(response.getMessage());
 });
 
