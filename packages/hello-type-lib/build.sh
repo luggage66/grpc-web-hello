@@ -8,7 +8,11 @@ mkdir -p lib
 # find ../../proto -name "*.proto" | xargs -J {} protoc --json_out=protoc_json --proto_path ../../proto {}
 
 # .proto -> .js
-find ./proto  ! \( -path "*/google/api/*" \)  -name "*.proto" | xargs -J {} npx pbjs {} \
+# find ./proto  ! \( -path "*/google/api/*" \)  -name "*.proto" | xargs -J {} npx pbjs {} \
+#   -t static-module \
+#   -o lib/generated.js
+
+npx pbjs proto/hello-world.proto \
   -t static-module \
   -o lib/generated.js
 

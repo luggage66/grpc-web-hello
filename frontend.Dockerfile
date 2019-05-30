@@ -1,4 +1,6 @@
-FROM node:8 as base
+FROM node:8-alpine as base
+
+RUN apk add bash
 
 RUN npm install -g lerna
 
