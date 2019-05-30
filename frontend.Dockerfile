@@ -12,7 +12,7 @@ RUN npm config set unsafe-perm true && \
    npx lerna bootstrap && \
    npm config set unsafe-perm false
 
-RUN lerna run build
+RUN npx lerna run build
 
 WORKDIR /hello-grc-web/packages/frontend-app-js
 

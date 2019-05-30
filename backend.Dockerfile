@@ -12,6 +12,6 @@ RUN npm config set unsafe-perm true && \
    npx lerna bootstrap && \
    npm config set unsafe-perm false
 
-RUN lerna run build
+RUN npx lerna run build
 
 ENTRYPOINT [ "node", "/hello-grc-web/packages/backend-app-js/lib/index" ]
