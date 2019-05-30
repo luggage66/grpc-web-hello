@@ -1,9 +1,17 @@
+after clone:
+from: https://github.com/grpc/grpc-web
+
+```sh
+curl -O https://github.com/grpc/grpc-web/releases/download/1.0.4/protoc-gen-grpc-web-1.0.4-darwin-x86_64
+sudo mv protoc-gen-grpc-web-1.0.4-darwin-x86_64 /usr/local/bin/protoc-gen-grpc-web
+chmod +x /usr/local/bin/protoc-gen-grpc-web
+```
+
 setup and run
 
 ```sh
 make build-js
 make build-docker
-
 make deploy
 ```
 
@@ -14,7 +22,7 @@ cd packages/frontend-app-js
 webpack-dev-server
 ```
 
-To run local backend:
+To run local backend (useless, use the deployed one in minikube):
 
 ```sh
 cd packages/backend-app-js
@@ -24,11 +32,10 @@ yarn start
 Undeploy all
 
 ```sh
-find k8s/default -type f | xargs -I {} kubectl delete --namespace default -f {}
-find k8s/istio-system -type f | xargs -I {} kubectl delete --namespace istio-system -f {}
+make undeploy
 ```
 
-Random stuff:
+Random stuff / notes:
 
 ```sh
 cd packages/frontend-app-js
