@@ -10,7 +10,6 @@ metadata:
   name: hello-frontend
   selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/hello-frontend
 spec:
-  progressDeadlineSeconds: 2147483647
   replicas: 1
   revisionHistoryLimit: 10
   selector:
@@ -31,12 +30,4 @@ spec:
       - image: hello-grpc-client
         imagePullPolicy: Never
         name: hello-frontend
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-status: {}

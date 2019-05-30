@@ -12,12 +12,12 @@ mkdir -p lib
 #   -t static-module \
 #   -o lib/generated.js
 
-npx pbjs proto/hello-world.proto \
+pbjs proto/hello-world.proto \
   -t static-module \
   -o lib/generated.js
 
 # .js (with type comments) -> .d.ts
-npx pbts lib/generated.js \
+pbts lib/generated.js \
   -o src/generated.d.ts
 
 cp src/generated.d.ts lib/generated.d.ts

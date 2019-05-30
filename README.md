@@ -1,17 +1,10 @@
 setup and run
 
 ```sh
-# after clone
-lerna bootstrap
-lerna run build
+make build-js
+make build-docker
 
-# build docker images
-docker build . -t hello-grpc-server -f backend.Dockerfile
-docker build . -t hello-grpc-client -f frontend.Dockerfile
-
-# apply all k8s configs
-find k8s/default -type f | xargs -I {} kubectl apply --namespace default -f {}
-find k8s/istio-system -type f | xargs -I {} kubectl apply --namespace istio-system -f {}
+make deploy
 ```
 
 To run local client:
@@ -63,3 +56,6 @@ kubectl run foo --image=gcr.io/$(terraform output project_id)/hello-world
 kubectl describe pod foo
 git status
 ```
+
+
+https://github.com/istio/istio/pull/10064

@@ -4,7 +4,7 @@ import { HelloReply, HelloRequest} from './generated/hello-world_pb'
 
 import { GreeterClient } from './greeterClient';
 
-var client = new GreeterClient('http://hello-backend.default.svc.cluster.local:50066', {}, {
+var client = new GreeterClient('http://istio-ingressgateway.istio-system.svc.cluster.local:80', {}, {
   suppressCorsPreflight: "true"
 });
 

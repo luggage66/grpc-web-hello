@@ -31,12 +31,4 @@ spec:
       - image: hello-grpc-server
         imagePullPolicy: Never
         name: hello-backend
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-status: {}

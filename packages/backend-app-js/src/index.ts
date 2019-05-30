@@ -57,7 +57,7 @@ export function createGrpcServer(
 
   server.addService(GreeterServiceDescription, {
     sayHello(input: grpc.ServerUnaryCall<hello.grpc.HelloRequest>, callback: grpc.sendUnaryData<hello.grpc.HelloReply>) {
-      console.error("ARGS:", arguments);
+      console.log("ARGS:", arguments);
       callback(null, hello.grpc.HelloReply.fromObject({ message: "hello " + input.request.name}))
     }
   })
