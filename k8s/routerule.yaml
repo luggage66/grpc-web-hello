@@ -8,14 +8,29 @@ spec:
   gateways:
   - my-gateway
   http:
-  - route:
+
+  # goes to the backend http port 3000.
+  - match:
+      - uri:
+          exact: /backend-health
+    route:
+    - destination:
+        host: hello-backend
+        port:
+          number: 3000
+
+  # should be a grpc call, go to the backend grpc port
+  - match:
+      - uri:
+          prefix: /hello.
+    route:
     - destination:
         host: hello-backend
         port:
           number: 50066
     corsPolicy:
       allowOrigin:
-      - "*"
+      - "*" # for testing
       allowMethods:
       - POST
       - GET
@@ -37,10 +52,12 @@ spec:
       - grpc-status
       - grpc-message
       allowCredentials: true
-  # - match:
-  #   - port: 80
-  #   route:
-  #   - destination:
-  #       host: hello-backend
-  #       port:
-  #         number: 3000
+
+  # all others, serve the frontend
+  - route:
+    - destination:
+        host: hello-frontend
+        port:
+          number: 8080
+
+

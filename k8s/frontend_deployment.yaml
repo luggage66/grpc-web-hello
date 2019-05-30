@@ -30,4 +30,7 @@ spec:
       - image: hello-grpc-client
         imagePullPolicy: Never
         name: hello-frontend
+        ports:
+        - containerPort: 8080
       restartPolicy: Always
+

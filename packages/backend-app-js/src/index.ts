@@ -8,7 +8,7 @@ const port = 3000
 
 new grpc.Server()
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/backend-health', (req, res) => res.send('Backend is here.'))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 

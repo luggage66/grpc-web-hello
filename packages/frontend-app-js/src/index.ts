@@ -17,3 +17,7 @@ client.sayHello(request, { }, (err, response) => {
 });
 
 console.log('foo')
+
+const span = window.document.createElement('span');
+span.textContent = "Front End";
+window.document.body.appendChild(span);
