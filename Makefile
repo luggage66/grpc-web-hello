@@ -8,7 +8,6 @@ build-docker:
 	docker build . -t hello-grpc-server -f backend.Dockerfile
 	docker build . -t hello-grpc-client -f frontend.Dockerfile
 
-build:
 build: build-js build-docker
 
 deploy:
@@ -17,5 +16,4 @@ deploy:
 undeploy:
 	find k8s -type f | xargs -I {} kubectl delete --namespace default -f {}
 
-cleandeploy:
-cleandeploy: undeply deploy
+cleandeploy: undeploy deploy
