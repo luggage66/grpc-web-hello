@@ -59,5 +59,9 @@ spec:
         host: hello-frontend
         port:
           number: 8080
+    websocketUpgrade: true
+    corsPolicy:
+      allowOrigin:
+      - "*" # for webpack-dev-server testing
 
 
