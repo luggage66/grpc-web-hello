@@ -5,10 +5,15 @@ metadata:
 spec:
   hosts:
   - hello-backend
+  gateways:
+  - my-gateway
+  - mesh
   http:
   - route:
     - destination:
         host: hello-backend
+        port:
+          number: 3000
     corsPolicy:
       allowOrigin:
         - "*"

@@ -7,7 +7,6 @@ metadata:
   name: hello-frontend
   selfLink: /api/v1/namespaces/default/services/hello-frontend
 spec:
-  externalTrafficPolicy: Cluster
   ports:
   - name: http
     port: 8080
@@ -15,7 +14,3 @@ spec:
     targetPort: 8080
   selector:
     run: hello-frontend
-  sessionAffinity: None
-  type: LoadBalancer
-status:
-  loadBalancer: {}

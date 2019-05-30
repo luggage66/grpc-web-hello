@@ -7,7 +7,6 @@ metadata:
   name: hello-backend
   selfLink: /api/v1/namespaces/default/services/hello-backend
 spec:
-  externalTrafficPolicy: Cluster
   ports:
   - name: grpc
     port: 50066
@@ -19,7 +18,3 @@ spec:
     targetPort: 3000
   selector:
     run: hello-backend
-  sessionAffinity: None
-  type: LoadBalancer
-status:
-  loadBalancer: {}
