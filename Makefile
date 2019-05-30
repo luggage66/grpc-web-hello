@@ -1,4 +1,4 @@
-node_modules:
+bootstrap:
 	npx lerna bootstrap
 
 build-js:
@@ -9,7 +9,7 @@ build-docker:
 	docker build . -t hello-grpc-client -f frontend.Dockerfile
 
 build:
-build: node_modules build-js build-docker
+build: build-js build-docker
 
 deploy:
 	find k8s -type f | xargs -I {} kubectl apply --namespace default -f {}

@@ -10,9 +10,17 @@ chmod +x /usr/local/bin/protoc-gen-grpc-web
 setup and run
 
 ```sh
+eval $(minikube docker-env)
+make bootstrap
 make build-js
 make build-docker
 make deploy
+```
+
+Undeploy all
+
+```sh
+make undeploy
 ```
 
 To run local client:
@@ -29,12 +37,6 @@ cd packages/backend-app-js
 yarn start
 ```
 
-Undeploy all
-
-```sh
-make undeploy
-```
-
 Random stuff / notes:
 
 ```sh
@@ -47,7 +49,8 @@ cd packages/hello-type-lib
 prototool grpc --address localhost:50066 --method hello.grpc.Greeter/SayHello --data '{ "name": "gfgfd" }'
 
 # or
-prototool grpc --address $(minikube service hello-backend --url --format "{{.IP}}:{{.Port}}" | head -n 1) --method hello.grpc.Greeter/SayHello --data '{ "name": "gfgfd" }'
+export ISTIO_INGRESS_IP=get real IP for istio-ingressgateway.istio-system.svc.cluster.local
+prototool grpc --address "${ISTIO_INGRESS_IP}:80" --method hello.grpc.Greeter/SayHello --data '{ "name": "gfgfd" }'
 ```
 
 ```sh
