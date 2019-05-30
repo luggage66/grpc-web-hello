@@ -8,8 +8,11 @@ WORKDIR /hello-grc-web
 
 COPY . .
 
-RUN npx lerna bootstrap
-RUN npx lerna run build
+RUN npm config set unsafe-perm true && \
+   npx lerna bootstrap && \
+   npm config set unsafe-perm false
+
+RUN lerna run build
 
 WORKDIR /hello-grc-web/packages/frontend-app-js
 
