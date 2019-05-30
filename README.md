@@ -23,6 +23,23 @@ Undeploy all
 make undeploy
 ```
 
+Using:
+
+```sh
+# this should go to the backend:3000 and just return "Backend is here" (works)
+curl http://istio-ingressgateway.istio-system.svc.cluster.local/backend-health
+
+# should open your browser to the front end (which goes a grpc-web call, open the console to see)
+# the grpc-web call here does not work (503)
+open http://istio-ingressgateway.istio-system.svc.cluster.local/
+
+# grpc (works)
+cd packages/hello-type-lib
+export INGRESS_IP=$(dig +short istio-ingressgateway.istio-system.svc.cluster.local @$(minikube ip) -p 30053)
+prototool grpc --address ${INGRESS_IP}:80 --method hello.grpc.Greeter/SayHello --data '{ "name": "jimbo" }'
+```
+
+
 To run local client:
 
 ```sh
