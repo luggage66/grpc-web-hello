@@ -32,6 +32,10 @@ spec:
       - image: hello-grpc-server
         imagePullPolicy: Never
         name: hello-backend
+        ports:
+        - containerPort: 50066
+          protocol: TCP
+          name: grpc-web-port
       restartPolicy: Always
 
 ---
@@ -46,11 +50,11 @@ metadata:
 
 spec:
   ports:
-  - name: grpc-web
+  - name: grpc-web-port
     port: 50066
     protocol: TCP
     targetPort: 50066
-  - name: http
+  - name: http-port
     port: 3000
     protocol: TCP
     targetPort: 3000
