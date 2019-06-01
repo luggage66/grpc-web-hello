@@ -11,9 +11,7 @@ build-docker:
 build: build-js build-docker
 
 deploy:
-	find k8s -type f | xargs -I {} kubectl apply --namespace default -f {}
+	helm upgrade --install grpc-web-hello helm/grpc-web-hello --namespace grpc-web-hello
 
 undeploy:
-	find k8s -type f | xargs -I {} kubectl delete --namespace default -f {}
-
-cleandeploy: undeploy deploy
+	helm delete --purge grpc-web-hello
