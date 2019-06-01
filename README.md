@@ -59,7 +59,7 @@ Random stuff / notes:
 ```sh
 cd packages/frontend-app-js
 mkdir -p src/generated
-protoc -I../hello-type-lib/proto ../hello-type-lib/proto/hello-world.proto --js_out=import_style=typescript:src/generated --grpc-web_out=import_style=typescript,mode=grpcwebtext:src/generated
+protoc -I../hello-type-lib/proto ../hello-type-lib/proto/hello-world.proto --js_out=import_style=commonjs:src/generated --grpc-web_out=import_style=typescript,mode=grpcwebtext:src/generated
 
 cd packages/hello-type-lib
 

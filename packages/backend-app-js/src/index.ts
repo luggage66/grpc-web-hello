@@ -2,28 +2,13 @@ import express from 'express';
 import { hello } from 'hello-type-lib';
 import * as grpc from 'grpc';
 
-
+// Just so I know this service is reachable
 const app = express()
 const port = 3000
-
-new grpc.Server()
-
 app.get('/backend-health', (req, res) => res.send('Backend is here.'))
-
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
-class GreeterService extends hello.grpc.Greeter  {
-  sayHello(request: hello.grpc.IHelloRequest, callback: hello.grpc.Greeter.SayHelloCallback): void;
-  sayHello(request: hello.grpc.IHelloRequest, callback?: hello.grpc.Greeter.SayHelloCallback): Promise<hello.grpc.HelloReply>;
-  sayHello(request: hello.grpc.IHelloRequest, callback?: hello.grpc.Greeter.SayHelloCallback): Promise<hello.grpc.HelloReply> | void {
-    const reply = hello.grpc.HelloReply.fromObject({ message: "howdy" })
-
-    if (callback) callback(null, reply);
-    Promise.resolve(reply)  ;
-  }
-}
-
-
+// wire protobufjs generated messages types to grpc-node
 const GreeterServiceDescription = {
   // Sends a greeting
   sayHello: {
@@ -42,17 +27,7 @@ const GreeterServiceDescription = {
   },
 };
 
-GreeterServiceDescription.sayHello = new Proxy(GreeterServiceDescription.sayHello, {
-  get(target, propKey, receiver) {
-    console.log('GreeterServiceDescription[' + propKey.toString() + ']: ');
-    return (<any>target)[propKey];
-  }
-});
-
-
-
-export function createGrpcServer(
-): grpc.Server {
+function createGrpcServer(): grpc.Server {
   const server = new grpc.Server()
 
   server.addService(GreeterServiceDescription, {
@@ -66,11 +41,10 @@ export function createGrpcServer(
 
   server.bind(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure())
 
-    // tslint:disable-next-line:no-console
-    console.info("Starting gRPC service on port %d", port)
+  // tslint:disable-next-line:no-console
+  console.info("Starting gRPC service on port %d", port)
 
-    return server;
-
+  return server;
 }
 
 const myServer = createGrpcServer();

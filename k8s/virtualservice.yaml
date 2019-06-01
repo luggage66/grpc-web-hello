@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: cors-for-testing
+  name: hello-virtual-service
 spec:
   hosts:
   - "*"
