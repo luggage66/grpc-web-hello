@@ -1,5 +1,10 @@
-after clone:
-from: https://github.com/grpc/grpc-web
+# grpc-web-hello
+
+## Prerequisites
+
+### `protoc-gen-grpc-web`
+
+https://github.com/grpc/
 
 ```sh
 curl -O https://github.com/grpc/grpc-web/releases/download/1.0.4/protoc-gen-grpc-web-1.0.4-darwin-x86_64
@@ -7,7 +12,7 @@ sudo mv protoc-gen-grpc-web-1.0.4-darwin-x86_64 /usr/local/bin/protoc-gen-grpc-w
 chmod +x /usr/local/bin/protoc-gen-grpc-web
 ```
 
-setup and run
+## Building and Deploying
 
 ```sh
 eval $(minikube docker-env)
@@ -17,13 +22,13 @@ make build-docker
 make deploy
 ```
 
-Undeploy all
+### Undeploy all
 
 ```sh
 make undeploy
 ```
 
-Using:
+## Running the example:
 
 ```sh
 # this should go to the backend:3000 and just return "Backend is here" (works)
