@@ -2,20 +2,22 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-  creationTimestamp: null
-  generation: 1
+  name: "{{ include "grpc-web-hello.fullname" . }}-frontend"
   labels:
-    app: hello-frontend
-  name: hello-frontend
+    app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+    helm.sh/chart: {{ include "grpc-web-hello.chart" . }}
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 
 spec:
-  replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: hello-frontend
+      app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+      helm.sh/chart: {{ include "grpc-web-hello.chart" . }}
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/managed-by: {{ .Release.Service }}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -23,26 +25,55 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: hello-frontend
+        app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+        helm.sh/chart: {{ include "grpc-web-hello.chart" . }}
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
     spec:
       containers:
-      - image: hello-grpc-client
-        imagePullPolicy: Never
-        name: hello-frontend
-        ports:
-        - containerPort: 8080
-      restartPolicy: Always
+        - name: "{{ include "grpc-web-hello.fullname" . }}-frontend"
+          image: "{{ .Values.frontend.image }}:{{ .Values.frontend.tag }}"
+          imagePullPolicy: {{ .Values.frontend.pullPolicy }}
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
+  name: "{{ include "grpc-web-hello.fullname" . }}-frontend"
   labels:
-    app: hello-frontend
-  name: hello-frontend
+    app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+    helm.sh/chart: {{ include "grpc-web-hello.chart" . }}
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 
 spec:
   ports:
@@ -51,4 +82,6 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: hello-frontend
+    app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/instance: {{ .Release.Name }}

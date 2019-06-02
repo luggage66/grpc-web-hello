@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: my-gateway
+  name: "{{ include "grpc-web-hello.fullname" . }}"
 spec:
   selector:
     istio: ingressgateway # use Istio default gateway implementation

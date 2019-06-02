@@ -9,6 +9,11 @@ backend:
   tag: latest
   pullPolicy: IfNotPresent
 
+frontend:
+  image: hello-grpc-client
+  tag: latest
+  pullPolicy: IfNotPresent
+
 nameOverride: ""
 fullnameOverride: ""
 
