@@ -1,52 +1,73 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
-
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-  creationTimestamp: null
-  generation: 1
+  name: "{{ include "grpc-web-hello.fullname" . }}-backend"
   labels:
-    app: hello-backend
-  name: hello-backend
-
+    app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+    helm.sh/chart: {{ include "grpc-web-hello.chart" . }}
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  progressDeadlineSeconds: 2147483647
-  replicas: 1
-  revisionHistoryLimit: 10
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: hello-backend
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
+      app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: hello-backend
+        app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+        app.kubernetes.io/component: backend
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-      - image: hello-grpc-server
-        imagePullPolicy: Never
-        name: hello-backend
-        ports:
-        - containerPort: 50066
-          protocol: TCP
-          name: grpc-web-port
-      restartPolicy: Always
+        - name: "{{ include "grpc-web-hello.fullname" . }}-backend"
+          image: "{{ .Values.backend.image }}:{{ .Values.backend.tag }}"
+          imagePullPolicy: {{ .Values.backend.pullPolicy }}
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+            - containerPort: 50066
+              name: grpc-web-port
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /backend-health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /backend-health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
 
 ---
 apiVersion: v1
 kind: Service
 
 metadata:
-  creationTimestamp: null
+  name: "{{ include "grpc-web-hello.fullname" . }}-backend"
   labels:
-    app: hello-backend
-  name: hello-backend
+    app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+    helm.sh/chart: {{ include "grpc-web-hello.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: backend
 
 spec:
   ports:
@@ -59,4 +80,6 @@ spec:
     protocol: TCP
     targetPort: 3000
   selector:
-    app: hello-backend
+    app.kubernetes.io/name: {{ include "grpc-web-hello.name" . }}
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/instance: {{ .Release.Name }}

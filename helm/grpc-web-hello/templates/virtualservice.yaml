@@ -25,7 +25,7 @@ spec:
           prefix: /hello.
     route:
     - destination:
-        host: hello-backend
+        host: "{{ include "grpc-web-hello.fullname" . }}-backend"
         port:
           number: 50066
     corsPolicy:
@@ -56,7 +56,7 @@ spec:
   # all others, serve the frontend
   - route:
     - destination:
-        host: hello-frontend
+        host: "{{ include "grpc-web-hello.fullname" . }}-backend"
         port:
           number: 8080
     websocketUpgrade: true

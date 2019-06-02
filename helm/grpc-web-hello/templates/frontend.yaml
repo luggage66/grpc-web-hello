@@ -52,4 +52,3 @@ spec:
     targetPort: 8080
   selector:
     app: hello-frontend
-  type: LoadBalancer

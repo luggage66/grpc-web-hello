@@ -15,3 +15,6 @@ deploy:
 
 undeploy:
 	helm delete --purge grpc-web-hello
+
+deploy-test:
+	helm install --dry-run helm/grpc-web-hello/ --debug | less

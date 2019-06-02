@@ -4,9 +4,9 @@
 
 replicaCount: 1
 
-image:
-  repository: nginx
-  tag: stable
+backend:
+  image: hello-grpc-server
+  tag: latest
   pullPolicy: IfNotPresent
 
 nameOverride: ""
