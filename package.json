@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "jest": "^24.8.0",
     "lerna": "^3.14.1"
   },
   "workspaces": [
