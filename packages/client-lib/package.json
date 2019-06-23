@@ -1,8 +1,8 @@
 {
-  "name": "hello-type-lib",
+  "name": "client-lib",
   "version": "1.0.0",
   "description": "> TODO: description",
-  "author": "Donald L Mull Jr <donald.mull@gmail.com>",
+  "author": "Donald Mull Jr <donald.mull@gmail.com>",
   "homepage": "https://github.com/luggage66/grpc-web-hello#readme",
   "license": "ISC",
   "main": "lib/index.js",
@@ -19,16 +19,13 @@
     "url": "git+https://github.com/luggage66/grpc-web-hello.git"
   },
   "scripts": {
-    "build": "./build.sh && tsc -p .",
+    "build": "tsc -p . && cp src/generated/hello-world_pb.js lib/generated/hello-world_pb.js",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/luggage66/grpc-web-hello/issues"
   },
-  "devDependencies": {
-    "@types/jest": "^24.0.13",
-    "protobufjs": "^6.8.8",
-    "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^3.4.1"
+  "peerDependencies": {
+    "grpc-web": "~1.0.4"
   }
 }

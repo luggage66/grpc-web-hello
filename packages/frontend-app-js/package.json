@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/google-protobuf": "^3.2.7",
+    "@types/jest": "^24.0.13",
     "html-webpack-plugin": "^3.2.0",
     "protobufjs": "^6.8.8",
     "ts-loader": "^6.0.1",
@@ -28,6 +29,7 @@
     "webpack-dev-server": "^3.4.1"
   },
   "dependencies": {
+    "client-lib": "^1.0.0",
     "google-protobuf": "^3.8.0-rc.1",
     "grpc-web": "^1.0.4",
     "hello-type-lib": "^1.0.0"

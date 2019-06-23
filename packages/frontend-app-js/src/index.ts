@@ -1,8 +1,8 @@
 // import { hello } from 'hello-type-lib'
 import * as grpcWeb from 'grpc-web';
-import { HelloReply, HelloRequest} from './generated/hello-world_pb'
+// import { HelloReply, HelloRequest} from './generated/hello-world_pb'
 
-import { GreeterClient } from './greeterClient';
+import { GreeterClient } from 'client-lib';
 
 
 // display some ouput so we know we reached the front end

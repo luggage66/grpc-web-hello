@@ -11,6 +11,7 @@ build-docker:
 build: build-js build-docker
 
 deploy:
+	kubectl apply -f namespace.yaml
 	helm upgrade --install grpc-web-hello helm/grpc-web-hello --namespace grpc-web-hello
 
 undeploy:
@@ -18,3 +19,6 @@ undeploy:
 
 deploy-test:
 	helm install --dry-run helm/grpc-web-hello/ --debug | less
+
+test:
+	jest
